@@ -266,8 +266,8 @@ if place:
                     try:
                         dates, codes = bk.api_weather_code(place, 'h')
                         dates = dates[:value]
-                        image_paths = [images[condition] for condition in codes][:value]
-                        description = [weather_code[condition] for condition in codes][:value]
+                        image_paths = [images[condition] for condition in codes][:value+1]
+                        description = [weather_code[condition] for condition in codes][:value+1]
                         num_cols = 5
                         num_rows = (len(image_paths) + num_cols - 1) // num_cols
 
@@ -289,8 +289,8 @@ if place:
                     try:
                         dates, codes = bk.api_weather_code(place, 'm')
                         dates = dates[:value]
-                        image_paths = [images[condition] for condition in codes][:value]
-                        description = [weather_code[condition] for condition in codes][:value]
+                        image_paths = [images[condition] for condition in codes][:value+1]
+                        description = [weather_code[condition] for condition in codes][:value+1]
                         num_cols = 5
                         num_rows = (len(image_paths) + num_cols - 1) // num_cols
 
@@ -507,54 +507,46 @@ if place:
                             elif 310 <= value < 360:
                                 value_list.append(f"{value}{u"\u00b0"}NW")
                         print(value_list)
-                        num_cols = 5  # You can adjust this to have more or fewer columns
-                        num_rows = (len(value_list) + num_cols - 1) // num_cols  # Calculate the number of rows
+                        num_cols = 5
+                        num_rows = (len(value_list) + num_cols - 1) // num_cols
 
-                        image_paths = []  # List to store image paths
-                        descriptions = []  # List to store descriptions
-                        dates_to_display = []  # List to store dates
+                        image_paths = []
+                        descriptions = []
+                        dates_to_display = []
 
                         for i, date in zip(value_list, dates):
                             if i.endswith('°N'):
                                 image_paths.append(img['North'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°NE'):
                                 image_paths.append(img['North-east'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°E'):
                                 image_paths.append(img['East'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°SE'):
                                 image_paths.append(img['South-east'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°S'):
                                 image_paths.append(img['South'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°SW'):
                                 image_paths.append(img['South-west'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°W'):
                                 image_paths.append(img['West'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°NW'):
                                 image_paths.append(img['North-west'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
 
                         for i in range(num_rows):
                             cols = st.columns(num_cols)
@@ -595,54 +587,46 @@ if place:
                             elif 310 <= value < 360:
                                 value_list.append(f"{value}{u"\u00b0"}NW")
                         print(value_list)
-                        num_cols = 5  # You can adjust this to have more or fewer columns
-                        num_rows = (len(value_list) + num_cols - 1) // num_cols  # Calculate the number of rows
+                        num_cols = 5
+                        num_rows = (len(value_list) + num_cols - 1) // num_cols
 
-                        image_paths = []  # List to store image paths
-                        descriptions = []  # List to store descriptions
-                        dates_to_display = []  # List to store dates
+                        image_paths = []
+                        descriptions = []
+                        dates_to_display = []
 
                         for i, date in zip(value_list, dates):
                             if i.endswith('°N'):
                                 image_paths.append(img['North'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°NE'):
                                 image_paths.append(img['North-east'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°E'):
                                 image_paths.append(img['East'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°SE'):
                                 image_paths.append(img['South-east'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°S'):
                                 image_paths.append(img['South'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°SW'):
                                 image_paths.append(img['South-west'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°W'):
                                 image_paths.append(img['West'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°NW'):
                                 image_paths.append(img['North-west'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
 
                         for i in range(num_rows):
                             cols = st.columns(num_cols)
@@ -683,54 +667,46 @@ if place:
                             elif 310 <= value < 360:
                                 value_list.append(f"{value}{u"\u00b0"}NW")
                         print(value_list)
-                        num_cols = 5  # You can adjust this to have more or fewer columns
-                        num_rows = (len(value_list) + num_cols - 1) // num_cols  # Calculate the number of rows
+                        num_cols = 5
+                        num_rows = (len(value_list) + num_cols - 1) // num_cols
 
-                        image_paths = []  # List to store image paths
-                        descriptions = []  # List to store descriptions
-                        dates_to_display = []  # List to store dates
+                        image_paths = []
+                        descriptions = []
+                        dates_to_display = []
 
                         for i, date in zip(value_list, dates):
                             if i.endswith('°N'):
                                 image_paths.append(img['North'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°NE'):
                                 image_paths.append(img['North-east'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°E'):
                                 image_paths.append(img['East'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°SE'):
                                 image_paths.append(img['South-east'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°S'):
                                 image_paths.append(img['South'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°SW'):
                                 image_paths.append(img['South-west'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°W'):
                                 image_paths.append(img['West'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
                             elif i.endswith('°NW'):
                                 image_paths.append(img['North-west'])
                                 descriptions.append(i)
-                                dates_to_display.append(
-                                    date)  # added date to the list
+                                dates_to_display.append(date)
 
                         for i in range(num_rows):
                             cols = st.columns(num_cols)
