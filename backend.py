@@ -18,6 +18,7 @@ def get_data(object_iterate, key):
             value = f"{content_raw['values'][key]}"
             value_list.append(value)
         else:
+            value_list = [int(ii) for ii in value_list]
             if sum(value_list) != 0:
                 if len(value_list) != 0:
                     average_uv = sum(value_list) / len(value_list)
@@ -296,6 +297,6 @@ def api_wind_direction(location, frequency):
         pass
 
 if __name__ == "__main__":
-    a, m = api_weather_code('new%20york', 'h')
+    a, m = api_uv_index('new%20york', 'd')
     print(len(a))
 
