@@ -70,7 +70,7 @@ option_2 = st.selectbox("Select frequency:",("Daily", "Hourly", "Minutely"))
 
 
 if place:
-    
+
     st.subheader(f"{option} in {place}")
     match option:
         case "Temperature":
