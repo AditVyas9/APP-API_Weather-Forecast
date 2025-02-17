@@ -31,7 +31,7 @@ images = {
             }
 weather_code ={
       "0": "Unknown",
-      "1000": "Clear, Sunny",
+      "1000": "Clear",
       "1100": "Mostly Clear",
       "1101": "Partly Cloudy",
       "1102": "Mostly Cloudy",
@@ -60,7 +60,7 @@ img = {"North": 'images/North.png',
        "South-east": 'images/southeast.png',
        "South-west": 'images/southwest.png',
        "West": 'images/west.png',
-       "East": 'images/east.png.png',
+       "East": 'images/east.png',
        "North-west": 'images/northwest.png',
        "North-east": 'images/northeast.png',
        }
@@ -266,8 +266,8 @@ if place:
                     try:
                         dates, codes = bk.api_weather_code(place, 'h')
                         dates = dates[:value]
-                        image_paths = [images[condition] for condition in codes][:value+1]
-                        description = [weather_code[condition] for condition in codes][:value+1]
+                        image_paths = [images[condition] for condition in codes][:value]
+                        description = [weather_code[condition] for condition in codes][:value]
                         num_cols = 5
                         num_rows = (len(image_paths) + num_cols - 1) // num_cols
 
@@ -289,8 +289,8 @@ if place:
                     try:
                         dates, codes = bk.api_weather_code(place, 'm')
                         dates = dates[:value]
-                        image_paths = [images[condition] for condition in codes][:value+1]
-                        description = [weather_code[condition] for condition in codes][:value+1]
+                        image_paths = [images[condition] for condition in codes][:value]
+                        description = [weather_code[condition] for condition in codes][:value]
                         num_cols = 5
                         num_rows = (len(image_paths) + num_cols - 1) // num_cols
 
@@ -506,7 +506,6 @@ if place:
                                 value_list.append(f"{value}{u"\u00b0"}W")
                             elif 310 <= value < 360:
                                 value_list.append(f"{value}{u"\u00b0"}NW")
-                        print(value_list)
                         num_cols = 5
                         num_rows = (len(value_list) + num_cols - 1) // num_cols
 
@@ -586,7 +585,6 @@ if place:
                                 value_list.append(f"{value}{u"\u00b0"}W")
                             elif 310 <= value < 360:
                                 value_list.append(f"{value}{u"\u00b0"}NW")
-                        print(value_list)
                         num_cols = 5
                         num_rows = (len(value_list) + num_cols - 1) // num_cols
 
@@ -666,7 +664,6 @@ if place:
                                 value_list.append(f"{value}{u"\u00b0"}W")
                             elif 310 <= value < 360:
                                 value_list.append(f"{value}{u"\u00b0"}NW")
-                        print(value_list)
                         num_cols = 5
                         num_rows = (len(value_list) + num_cols - 1) // num_cols
 
