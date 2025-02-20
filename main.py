@@ -65,8 +65,8 @@ img = {"North": 'images/North.png',
        "North-east": 'images/northeast.png',
        }
 
-option = st.selectbox("Select data to view", ("Temperature", "UV Index", "Visibility", "Humidity", "Dew point","Sky Conditions", "Surface Pressure", "Wind Speed", "Wind Gust", "Wind Direction"))
-option_2 = st.selectbox("Select frequency:",("Daily", "Hourly", "Minutely"))
+option = st.selectbox("Select data to view", ('', "Temperature", "UV Index", "Visibility", "Humidity", "Dew point","Sky Conditions", "Surface Pressure", "Wind Speed", "Wind Gust", "Wind Direction"))
+option_2 = st.selectbox("Select frequency:",('',"Daily", "Hourly", "Minutely"))
 
 
 if place:
