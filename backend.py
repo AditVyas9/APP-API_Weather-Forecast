@@ -1,9 +1,7 @@
 import requests
-import toml
+import streamlit as st
 
-config = toml.load("secrets.toml")
-
-API_KEY = config["API_KEY"]["API_KEY"]
+API_KEY = st.secrets["API_KEY"]["API_KEY"]
 
 
 def get_data(object_iterate, key):
