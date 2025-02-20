@@ -64,13 +64,14 @@ img = {"North": 'images/North.png',
        "North-west": 'images/northwest.png',
        "North-east": 'images/northeast.png',
        }
+default = '--Select--'
 
-option = st.selectbox("Select data to view", ('--Select--', "Temperature", "UV Index", "Visibility", "Humidity", "Dew point","Sky Conditions", "Surface Pressure", "Wind Speed", "Wind Gust", "Wind Direction"))
-option_2 = st.selectbox("Select frequency:",('--Select--',"Daily", "Hourly", "Minutely"))
+option = st.selectbox("Select data to view", (default, "Temperature", "UV Index", "Visibility", "Humidity", "Dew point","Sky Conditions", "Surface Pressure", "Wind Speed", "Wind Gust", "Wind Direction"))
+option_2 = st.selectbox("Select frequency:",(default,"Daily", "Hourly", "Minutely"))
 
 if place:
-    if option:
-        if option_2:
+    if option != default:
+        if option_2 != default:
             st.subheader(f"{option} in {place}", help="You can scroll the graph.")
             match option:
                 case "Temperature":
