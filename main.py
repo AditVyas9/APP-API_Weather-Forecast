@@ -68,649 +68,649 @@ img = {"North": 'images/North.png',
 option = st.selectbox("Select data to view", ('', "Temperature", "UV Index", "Visibility", "Humidity", "Dew point","Sky Conditions", "Surface Pressure", "Wind Speed", "Wind Gust", "Wind Direction"))
 option_2 = st.selectbox("Select frequency:",('',"Daily", "Hourly", "Minutely"))
 
-
 if place:
+    if option:
+        if option_2:
+            st.subheader(f"{option} in {place}", help="You can scroll the graph.")
+            match option:
+                case "Temperature":
+                    match option_2:
+                        case "Daily":
+                            try:
+                                dates, temp = bk.api_day(place, 'd')
+                                figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
+                                                                         "y": f"Temperature({u"\u00b0"}C)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Hourly":
+                            try:
+                                dates, temp = bk.api_day(place, 'h')
+                                figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
+                                                                          "y": f"Temperature({u"\u00b0"}C)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
 
-    st.subheader(f"{option} in {place}", help="You can scroll the graph.")
-    match option:
-        case "Temperature":
-            match option_2:
-                case "Daily":
-                    try:
-                        dates, temp = bk.api_day(place, 'd')
-                        figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
-                                                                 "y": f"Temperature({u"\u00b0"}C)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Hourly":
-                    try:
-                        dates, temp = bk.api_day(place, 'h')
-                        figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
-                                                                  "y": f"Temperature({u"\u00b0"}C)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
-                        
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Minutely":
-                    try:
-                        dates, temp = bk.api_day(place, 'm')
-                        figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
-                                                                  "y": f"Temperature({u"\u00b0"}C)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
-                        
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-        case "UV Index":
-            match option_2:
-                case "Daily":
-                    try:
-                        dates, temp = bk.api_uv_index(place, 'd')
-                        figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
-                                                                  "y": f"UV Index(mW/m{'\u00b2'})"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
-                        
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Hourly":
-                    try:
-                        dates, temp = bk.api_uv_index(place, 'h')
-                        figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
-                                                                  "y": f"UV Index(mW/m{'\u00b2'})"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
-                        
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Minutely":
-                    try:
-                        dates, temp = bk.api_uv_index(place, 'm')
-                        figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
-                                                                  "y": f"UV Index(mW/m{'\u00b2'})"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
-                        
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-        case "Visibility":
-            match option_2:
-                case "Daily":
-                    try:
-                        dates, temp = bk.api_visibility(place, 'd')
-                        figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
-                                                                  "y": f"Visibility(km)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
-                        
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Hourly":
-                    try:
-                        dates, temp = bk.api_visibility(place, 'h')
-                        figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
-                                                                  "y": f"Visibility(km)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
-                        
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Minutely":
-                    try:
-                        dates, temp = bk.api_visibility(place, 'm')
-                        figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
-                                                                  "y": f"Visibility(km)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
-                        
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-        case "Humidity":
-            match option_2:
-                case "Daily":
-                    try:
-                        dates, temp = bk.api_humidity(place, 'd')
-                        figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
-                                                                  "y": f"Humidity(%)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
-                        
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Hourly":
-                    try:
-                        dates, temp = bk.api_humidity(place, 'h')
-                        figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
-                                                                  "y": f"Humidity(%)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
-                        
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Minutely":
-                    try:
-                        dates, temp = bk.api_humidity(place, 'm')
-                        figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
-                                                                  "y": f"Humidity(%)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
-                        
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-        case "Sky Conditions":
-            st.write('All Dates are in Universal Time Coordinated(UTC)')
-            match option_2:
-                case "Daily":
-                    try:
-                        dates, codes = bk.api_weather_code(place, 'd')
-                        image_paths = [images[condition] for condition in codes]
-                        description = [weather_code[condition] for condition in codes]
-                        num_cols = 5
-                        num_rows = (len(image_paths) + num_cols - 1) // num_cols
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Minutely":
+                            try:
+                                dates, temp = bk.api_day(place, 'm')
+                                figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
+                                                                          "y": f"Temperature({u"\u00b0"}C)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        for i in range(num_rows):
-                            cols = st.columns(num_cols)
-                            for j in range(num_cols):
-                                index = i * num_cols + j
-                                if index < len(image_paths):
-                                    cols[j].image(image_paths[index], width=50)
-                                    cols[j].write(description[index])
-                                    cols[j].write(dates[index])
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                case "UV Index":
+                    match option_2:
+                        case "Daily":
+                            try:
+                                dates, temp = bk.api_uv_index(place, 'd')
+                                figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
+                                                                          "y": f"UV Index(mW/m{'\u00b2'})"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                    except TypeError:
-                        
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Hourly":
-                    value = st.slider('Data:', min_value=5, max_value=120, help="Number of data you want.")
-                    try:
-                        dates, codes = bk.api_weather_code(place, 'h')
-                        dates = dates[:value]
-                        image_paths = [images[condition] for condition in codes][:value]
-                        description = [weather_code[condition] for condition in codes][:value]
-                        num_cols = 5
-                        num_rows = (len(image_paths) + num_cols - 1) // num_cols
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Hourly":
+                            try:
+                                dates, temp = bk.api_uv_index(place, 'h')
+                                figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
+                                                                          "y": f"UV Index(mW/m{'\u00b2'})"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        for i in range(num_rows):
-                            cols = st.columns(num_cols)
-                            for j in range(num_cols):
-                                index = i * num_cols + j
-                                if index < len(image_paths):
-                                    cols[j].image(image_paths[index], width=50)
-                                    cols[j].write(description[index])
-                                    cols[j].write(dates[index])
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Minutely":
+                            try:
+                                dates, temp = bk.api_uv_index(place, 'm')
+                                figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
+                                                                          "y": f"UV Index(mW/m{'\u00b2'})"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                    except TypeError:
-                        
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Minutely":
-                    value = st.slider('Data you want:', min_value=5, max_value=120, help="Number of data you want.")
-                    try:
-                        dates, codes = bk.api_weather_code(place, 'm')
-                        dates = dates[:value]
-                        image_paths = [images[condition] for condition in codes][:value]
-                        description = [weather_code[condition] for condition in codes][:value]
-                        num_cols = 5
-                        num_rows = (len(image_paths) + num_cols - 1) // num_cols
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                case "Visibility":
+                    match option_2:
+                        case "Daily":
+                            try:
+                                dates, temp = bk.api_visibility(place, 'd')
+                                figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
+                                                                          "y": f"Visibility(km)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        for i in range(num_rows):
-                            cols = st.columns(num_cols)
-                            for j in range(num_cols):
-                                index = i * num_cols + j
-                                if index < len(image_paths):
-                                    cols[j].image(image_paths[index], width=50)
-                                    cols[j].write(description[index])
-                                    cols[j].write(dates[index])
-                    except TypeError:
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-        case "Dew point":
-            match option_2:
-                case "Daily":
-                    try:
-                        dates, temp = bk.api_dew_point(place, 'd')
-                        figure = px.line(x=dates, y=temp, labels={
-                            "x": "Dates(in Universal Time Coordinated-UTC)",
-                            "y": f"Dew point({u"\u00b0"}C)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Hourly":
+                            try:
+                                dates, temp = bk.api_visibility(place, 'h')
+                                figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
+                                                                          "y": f"Visibility(km)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Hourly":
-                    try:
-                        dates, temp = bk.api_dew_point(place, 'h')
-                        figure = px.line(x=dates, y=temp, labels={
-                            "x": "Dates(in Universal Time Coordinated-UTC)",
-                            "y": f"Dew point({u"\u00b0"}C)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Minutely":
+                            try:
+                                dates, temp = bk.api_visibility(place, 'm')
+                                figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
+                                                                          "y": f"Visibility(km)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                    except TypeError:
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                case "Humidity":
+                    match option_2:
+                        case "Daily":
+                            try:
+                                dates, temp = bk.api_humidity(place, 'd')
+                                figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
+                                                                          "y": f"Humidity(%)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Minutely":
-                    try:
-                        dates, temp = bk.api_dew_point(place, 'm')
-                        figure = px.line(x=dates, y=temp, labels={
-                            "x": "Dates(in Universal Time Coordinated-UTC)",
-                            "y": f"Dew point({u"\u00b0"}C)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-        case "Surface Pressure":
-            match option_2:
-                case "Daily":
-                    try:
-                        dates, temp = bk.api_surface_level(place, 'd')
-                        figure = px.line(x=dates, y=temp, labels={
-                            "x": "Dates(in Universal Time Coordinated-UTC)",
-                            "y": f"Surface Pressure(hPa)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Hourly":
+                            try:
+                                dates, temp = bk.api_humidity(place, 'h')
+                                figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
+                                                                          "y": f"Humidity(%)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Hourly":
-                    try:
-                        dates, temp = bk.api_surface_level(place, 'h')
-                        figure = px.line(x=dates, y=temp, labels={
-                            "x": "Dates(in Universal Time Coordinated-UTC)",
-                            "y": f"Surface Pressure(hPa)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Minutely":
+                            try:
+                                dates, temp = bk.api_humidity(place, 'm')
+                                figure = px.line(x=dates, y=temp, labels={"x": "Dates(in Universal Time Coordinated-UTC)",
+                                                                          "y": f"Humidity(%)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Minutely":
-                    try:
-                        dates, temp = bk.api_surface_level(place, 'm')
-                        figure = px.line(x=dates, y=temp, labels={
-                            "x": "Dates(in Universal Time Coordinated-UTC)",
-                            "y": f"Surface Pressure(hPa)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                case "Sky Conditions":
+                    st.write('All Dates are in Universal Time Coordinated(UTC)')
+                    match option_2:
+                        case "Daily":
+                            try:
+                                dates, codes = bk.api_weather_code(place, 'd')
+                                image_paths = [images[condition] for condition in codes]
+                                description = [weather_code[condition] for condition in codes]
+                                num_cols = 5
+                                num_rows = (len(image_paths) + num_cols - 1) // num_cols
 
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-        case "Wind Speed":
-            match option_2:
-                case "Daily":
-                    try:
-                        dates, temp = bk.api_wind_speed(place, 'd')
-                        figure = px.line(x=dates, y=temp, labels={
-                            "x": "Dates(in Universal Time Coordinated-UTC)",
-                            "y": f"Wind Speed(m/s)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
+                                for i in range(num_rows):
+                                    cols = st.columns(num_cols)
+                                    for j in range(num_cols):
+                                        index = i * num_cols + j
+                                        if index < len(image_paths):
+                                            cols[j].image(image_paths[index], width=50)
+                                            cols[j].write(description[index])
+                                            cols[j].write(dates[index])
 
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Hourly":
-                    try:
-                        dates, temp = bk.api_wind_speed(place, 'h')
-                        figure = px.line(x=dates, y=temp, labels={
-                            "x": "Dates(in Universal Time Coordinated-UTC)",
-                            "y": f"Wind Speed(m/s)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
+                            except TypeError:
 
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Minutely":
-                    try:
-                        dates, temp = bk.api_wind_speed(place, 'm')
-                        figure = px.line(x=dates, y=temp, labels={
-                            "x": "Dates(in Universal Time Coordinated-UTC)",
-                            "y": f"Wind Speed(m/s)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Hourly":
+                            value = st.slider('Data:', min_value=5, max_value=120, help="Number of data you want.")
+                            try:
+                                dates, codes = bk.api_weather_code(place, 'h')
+                                dates = dates[:value]
+                                image_paths = [images[condition] for condition in codes][:value]
+                                description = [weather_code[condition] for condition in codes][:value]
+                                num_cols = 5
+                                num_rows = (len(image_paths) + num_cols - 1) // num_cols
 
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-        case "Wind Gust":
-            match option_2:
-                case "Daily":
-                    try:
-                        dates, temp = bk.api_wind_gust(place, 'd')
-                        figure = px.line(x=dates, y=temp, labels={
-                            "x": "Dates(in Universal Time Coordinated-UTC)",
-                            "y": f"Wind Gust(m/s)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
+                                for i in range(num_rows):
+                                    cols = st.columns(num_cols)
+                                    for j in range(num_cols):
+                                        index = i * num_cols + j
+                                        if index < len(image_paths):
+                                            cols[j].image(image_paths[index], width=50)
+                                            cols[j].write(description[index])
+                                            cols[j].write(dates[index])
 
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Hourly":
-                    try:
-                        dates, temp = bk.api_wind_gust(place, 'h')
-                        figure = px.line(x=dates, y=temp, labels={
-                            "x": "Dates(in Universal Time Coordinated-UTC)",
-                            "y": f"Wind Gust(m/s)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
+                            except TypeError:
 
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Minutely":
-                    try:
-                        dates, temp = bk.api_wind_gust(place, 'm')
-                        figure = px.line(x=dates, y=temp, labels={
-                            "x": "Dates(in Universal Time Coordinated-UTC)",
-                            "y": f"Wind Gust(m/s)"})
-                        figure.update_xaxes(tickmode="auto", nticks=12)
-                        figure.update_xaxes(ticksuffix="   ")
-                        figure.update_yaxes(ticksuffix="   ")
-                        st.plotly_chart(figure_or_data=figure)
-                    except TypeError:
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Minutely":
+                            value = st.slider('Data you want:', min_value=5, max_value=120, help="Number of data you want.")
+                            try:
+                                dates, codes = bk.api_weather_code(place, 'm')
+                                dates = dates[:value]
+                                image_paths = [images[condition] for condition in codes][:value]
+                                description = [weather_code[condition] for condition in codes][:value]
+                                num_cols = 5
+                                num_rows = (len(image_paths) + num_cols - 1) // num_cols
 
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-        case "Wind Direction":
-            st.write('All Dates are in Universal Time Coordinated(UTC)')
-            match option_2:
-                case "Daily":
-                    value_list = []
-                    try:
-                        dates, values = bk.api_wind_direction(place, 'h')
-                        ii = 0
-                        for value in values:
-                            if  0 == value or value == 360:
-                                value_list.append(f"{value}{u"\u00b0"}N")
-                            elif 1 <= value < 90:
-                                value_list.append(f"{value}{u"\u00b0"}NE")
-                            elif 90 == value:
-                                value_list.append(f"{value}{u"\u00b0"}E")
-                            elif 91 <= value < 180:
-                                value_list.append(f"{value}{u"\u00b0"}SE")
-                            elif value == 180:
-                                value_list.append(f"{value}{u"\u00b0"}S")
-                            elif 181 <= value < 270:
-                                value_list.append(f"{value}{u"\u00b0"}SW")
-                            elif value == 270:
-                                value_list.append(f"{value}{u"\u00b0"}W")
-                            elif 271 <= value < 360:
-                                value_list.append(f"{value}{u"\u00b0"}NW")
-                        num_cols = 5
-                        num_rows = (len(value_list) + num_cols - 1) // num_cols
+                                for i in range(num_rows):
+                                    cols = st.columns(num_cols)
+                                    for j in range(num_cols):
+                                        index = i * num_cols + j
+                                        if index < len(image_paths):
+                                            cols[j].image(image_paths[index], width=50)
+                                            cols[j].write(description[index])
+                                            cols[j].write(dates[index])
+                            except TypeError:
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                case "Dew point":
+                    match option_2:
+                        case "Daily":
+                            try:
+                                dates, temp = bk.api_dew_point(place, 'd')
+                                figure = px.line(x=dates, y=temp, labels={
+                                    "x": "Dates(in Universal Time Coordinated-UTC)",
+                                    "y": f"Dew point({u"\u00b0"}C)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        image_paths = []
-                        descriptions = []
-                        dates_to_display = []
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Hourly":
+                            try:
+                                dates, temp = bk.api_dew_point(place, 'h')
+                                figure = px.line(x=dates, y=temp, labels={
+                                    "x": "Dates(in Universal Time Coordinated-UTC)",
+                                    "y": f"Dew point({u"\u00b0"}C)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
 
-                        for i, date in zip(value_list, dates):
-                            if i.endswith('°N'):
-                                image_paths.append(img['North'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°NE'):
-                                image_paths.append(img['North-east'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°E'):
-                                image_paths.append(img['East'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°SE'):
-                                image_paths.append(img['South-east'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°S'):
-                                image_paths.append(img['South'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°SW'):
-                                image_paths.append(img['South-west'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°W'):
-                                image_paths.append(img['West'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°NW'):
-                                image_paths.append(img['North-west'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
+                            except TypeError:
 
-                        for i in range(num_rows):
-                            cols = st.columns(num_cols)
-                            for j in range(num_cols):
-                                index = i * num_cols + j
-                                if index < len(image_paths):
-                                    cols[j].image(image_paths[index], width=50)
-                                    cols[j].write(descriptions[index])
-                                    cols[j].write(dates_to_display[index])
-                    except TypeError:
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Hourly":
-                    value_slider = st.slider('Data you want:', min_value=5, max_value=120, help="Number of data you want.")
-                    value_list = []
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Minutely":
+                            try:
+                                dates, temp = bk.api_dew_point(place, 'm')
+                                figure = px.line(x=dates, y=temp, labels={
+                                    "x": "Dates(in Universal Time Coordinated-UTC)",
+                                    "y": f"Dew point({u"\u00b0"}C)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                case "Surface Pressure":
+                    match option_2:
+                        case "Daily":
+                            try:
+                                dates, temp = bk.api_surface_level(place, 'd')
+                                figure = px.line(x=dates, y=temp, labels={
+                                    "x": "Dates(in Universal Time Coordinated-UTC)",
+                                    "y": f"Surface Pressure(hPa)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                    try:
-                        dates, values = bk.api_wind_direction(place, 'h')
-                        dates = dates[:value_slider]
-                        values = values[:value_slider]
-                        ii = 0
-                        for value in values:
-                            if  0 == value or value == 360:
-                                value_list.append(f"{value}{u"\u00b0"}N")
-                            elif 1 <= value < 90:
-                                value_list.append(f"{value}{u"\u00b0"}NE")
-                            elif 90 == value:
-                                value_list.append(f"{value}{u"\u00b0"}E")
-                            elif 91 <= value < 180:
-                                value_list.append(f"{value}{u"\u00b0"}SE")
-                            elif value == 180:
-                                value_list.append(f"{value}{u"\u00b0"}S")
-                            elif 181 <= value < 270:
-                                value_list.append(f"{value}{u"\u00b0"}SW")
-                            elif value == 270:
-                                value_list.append(f"{value}{u"\u00b0"}W")
-                            elif 271 <= value < 360:
-                                value_list.append(f"{value}{u"\u00b0"}NW")
-                        num_cols = 5
-                        num_rows = (len(value_list) + num_cols - 1) // num_cols
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Hourly":
+                            try:
+                                dates, temp = bk.api_surface_level(place, 'h')
+                                figure = px.line(x=dates, y=temp, labels={
+                                    "x": "Dates(in Universal Time Coordinated-UTC)",
+                                    "y": f"Surface Pressure(hPa)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        image_paths = []
-                        descriptions = []
-                        dates_to_display = []
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Minutely":
+                            try:
+                                dates, temp = bk.api_surface_level(place, 'm')
+                                figure = px.line(x=dates, y=temp, labels={
+                                    "x": "Dates(in Universal Time Coordinated-UTC)",
+                                    "y": f"Surface Pressure(hPa)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        for i, date in zip(value_list, dates):
-                            if i.endswith('°N'):
-                                image_paths.append(img['North'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°NE'):
-                                image_paths.append(img['North-east'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°E'):
-                                image_paths.append(img['East'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°SE'):
-                                image_paths.append(img['South-east'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°S'):
-                                image_paths.append(img['South'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°SW'):
-                                image_paths.append(img['South-west'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°W'):
-                                image_paths.append(img['West'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°NW'):
-                                image_paths.append(img['North-west'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                case "Wind Speed":
+                    match option_2:
+                        case "Daily":
+                            try:
+                                dates, temp = bk.api_wind_speed(place, 'd')
+                                figure = px.line(x=dates, y=temp, labels={
+                                    "x": "Dates(in Universal Time Coordinated-UTC)",
+                                    "y": f"Wind Speed(m/s)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        for i in range(num_rows):
-                            cols = st.columns(num_cols)
-                            for j in range(num_cols):
-                                index = i * num_cols + j
-                                if index < len(image_paths):
-                                    cols[j].image(image_paths[index], width=50)
-                                    cols[j].write(descriptions[index])
-                                    cols[j].write(dates_to_display[index])
-                    except TypeError:
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Hourly":
+                            try:
+                                dates, temp = bk.api_wind_speed(place, 'h')
+                                figure = px.line(x=dates, y=temp, labels={
+                                    "x": "Dates(in Universal Time Coordinated-UTC)",
+                                    "y": f"Wind Speed(m/s)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
-                case "Minutely":
-                    value_list = []
-                    value_slider = st.slider('Data you want:', min_value=5, max_value=120, help="Number of data you want.")
-                    try:
-                        dates, values = bk.api_wind_direction(place, 'h')
-                        dates = dates[:value_slider]
-                        values = values[:value_slider]
-                        ii = 0
-                        for value in values:
-                            if  0 == value or value == 360:
-                                value_list.append(f"{value}{u"\u00b0"}N")
-                            elif 1 <= value < 90:
-                                value_list.append(f"{value}{u"\u00b0"}NE")
-                            elif 90 == value:
-                                value_list.append(f"{value}{u"\u00b0"}E")
-                            elif 91 <= value < 180:
-                                value_list.append(f"{value}{u"\u00b0"}SE")
-                            elif value == 180:
-                                value_list.append(f"{value}{u"\u00b0"}S")
-                            elif 181 <= value < 270:
-                                value_list.append(f"{value}{u"\u00b0"}SW")
-                            elif value == 270:
-                                value_list.append(f"{value}{u"\u00b0"}W")
-                            elif 271 <= value < 360:
-                                value_list.append(f"{value}{u"\u00b0"}NW")
-                        num_cols = 5
-                        num_rows = (len(value_list) + num_cols - 1) // num_cols
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Minutely":
+                            try:
+                                dates, temp = bk.api_wind_speed(place, 'm')
+                                figure = px.line(x=dates, y=temp, labels={
+                                    "x": "Dates(in Universal Time Coordinated-UTC)",
+                                    "y": f"Wind Speed(m/s)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        image_paths = []
-                        descriptions = []
-                        dates_to_display = []
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                case "Wind Gust":
+                    match option_2:
+                        case "Daily":
+                            try:
+                                dates, temp = bk.api_wind_gust(place, 'd')
+                                figure = px.line(x=dates, y=temp, labels={
+                                    "x": "Dates(in Universal Time Coordinated-UTC)",
+                                    "y": f"Wind Gust(m/s)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        for i, date in zip(value_list, dates):
-                            if i.endswith('°N'):
-                                image_paths.append(img['North'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°NE'):
-                                image_paths.append(img['North-east'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°E'):
-                                image_paths.append(img['East'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°SE'):
-                                image_paths.append(img['South-east'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°S'):
-                                image_paths.append(img['South'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°SW'):
-                                image_paths.append(img['South-west'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°W'):
-                                image_paths.append(img['West'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
-                            elif i.endswith('°NW'):
-                                image_paths.append(img['North-west'])
-                                descriptions.append(i)
-                                dates_to_display.append(date)
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Hourly":
+                            try:
+                                dates, temp = bk.api_wind_gust(place, 'h')
+                                figure = px.line(x=dates, y=temp, labels={
+                                    "x": "Dates(in Universal Time Coordinated-UTC)",
+                                    "y": f"Wind Gust(m/s)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
 
-                        for i in range(num_rows):
-                            cols = st.columns(num_cols)
-                            for j in range(num_cols):
-                                index = i * num_cols + j
-                                if index < len(image_paths):
-                                    cols[j].image(image_paths[index], width=50)
-                                    cols[j].write(descriptions[index])
-                                    cols[j].write(dates_to_display[index])
-                    except TypeError:
-                        st.header('Server error:'
-                                  'Please try after 1 hour!')
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Minutely":
+                            try:
+                                dates, temp = bk.api_wind_gust(place, 'm')
+                                figure = px.line(x=dates, y=temp, labels={
+                                    "x": "Dates(in Universal Time Coordinated-UTC)",
+                                    "y": f"Wind Gust(m/s)"})
+                                figure.update_xaxes(tickmode="auto", nticks=12)
+                                figure.update_xaxes(ticksuffix="   ")
+                                figure.update_yaxes(ticksuffix="   ")
+                                st.plotly_chart(figure_or_data=figure)
+                            except TypeError:
+
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                case "Wind Direction":
+                    st.write('All Dates are in Universal Time Coordinated(UTC)')
+                    match option_2:
+                        case "Daily":
+                            value_list = []
+                            try:
+                                dates, values = bk.api_wind_direction(place, 'h')
+                                ii = 0
+                                for value in values:
+                                    if  0 == value or value == 360:
+                                        value_list.append(f"{value}{u"\u00b0"}N")
+                                    elif 1 <= value < 90:
+                                        value_list.append(f"{value}{u"\u00b0"}NE")
+                                    elif 90 == value:
+                                        value_list.append(f"{value}{u"\u00b0"}E")
+                                    elif 91 <= value < 180:
+                                        value_list.append(f"{value}{u"\u00b0"}SE")
+                                    elif value == 180:
+                                        value_list.append(f"{value}{u"\u00b0"}S")
+                                    elif 181 <= value < 270:
+                                        value_list.append(f"{value}{u"\u00b0"}SW")
+                                    elif value == 270:
+                                        value_list.append(f"{value}{u"\u00b0"}W")
+                                    elif 271 <= value < 360:
+                                        value_list.append(f"{value}{u"\u00b0"}NW")
+                                num_cols = 5
+                                num_rows = (len(value_list) + num_cols - 1) // num_cols
+
+                                image_paths = []
+                                descriptions = []
+                                dates_to_display = []
+
+                                for i, date in zip(value_list, dates):
+                                    if i.endswith('°N'):
+                                        image_paths.append(img['North'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°NE'):
+                                        image_paths.append(img['North-east'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°E'):
+                                        image_paths.append(img['East'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°SE'):
+                                        image_paths.append(img['South-east'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°S'):
+                                        image_paths.append(img['South'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°SW'):
+                                        image_paths.append(img['South-west'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°W'):
+                                        image_paths.append(img['West'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°NW'):
+                                        image_paths.append(img['North-west'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+
+                                for i in range(num_rows):
+                                    cols = st.columns(num_cols)
+                                    for j in range(num_cols):
+                                        index = i * num_cols + j
+                                        if index < len(image_paths):
+                                            cols[j].image(image_paths[index], width=50)
+                                            cols[j].write(descriptions[index])
+                                            cols[j].write(dates_to_display[index])
+                            except TypeError:
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Hourly":
+                            value_slider = st.slider('Data you want:', min_value=5, max_value=120, help="Number of data you want.")
+                            value_list = []
+
+                            try:
+                                dates, values = bk.api_wind_direction(place, 'h')
+                                dates = dates[:value_slider]
+                                values = values[:value_slider]
+                                ii = 0
+                                for value in values:
+                                    if  0 == value or value == 360:
+                                        value_list.append(f"{value}{u"\u00b0"}N")
+                                    elif 1 <= value < 90:
+                                        value_list.append(f"{value}{u"\u00b0"}NE")
+                                    elif 90 == value:
+                                        value_list.append(f"{value}{u"\u00b0"}E")
+                                    elif 91 <= value < 180:
+                                        value_list.append(f"{value}{u"\u00b0"}SE")
+                                    elif value == 180:
+                                        value_list.append(f"{value}{u"\u00b0"}S")
+                                    elif 181 <= value < 270:
+                                        value_list.append(f"{value}{u"\u00b0"}SW")
+                                    elif value == 270:
+                                        value_list.append(f"{value}{u"\u00b0"}W")
+                                    elif 271 <= value < 360:
+                                        value_list.append(f"{value}{u"\u00b0"}NW")
+                                num_cols = 5
+                                num_rows = (len(value_list) + num_cols - 1) // num_cols
+
+                                image_paths = []
+                                descriptions = []
+                                dates_to_display = []
+
+                                for i, date in zip(value_list, dates):
+                                    if i.endswith('°N'):
+                                        image_paths.append(img['North'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°NE'):
+                                        image_paths.append(img['North-east'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°E'):
+                                        image_paths.append(img['East'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°SE'):
+                                        image_paths.append(img['South-east'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°S'):
+                                        image_paths.append(img['South'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°SW'):
+                                        image_paths.append(img['South-west'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°W'):
+                                        image_paths.append(img['West'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°NW'):
+                                        image_paths.append(img['North-west'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+
+                                for i in range(num_rows):
+                                    cols = st.columns(num_cols)
+                                    for j in range(num_cols):
+                                        index = i * num_cols + j
+                                        if index < len(image_paths):
+                                            cols[j].image(image_paths[index], width=50)
+                                            cols[j].write(descriptions[index])
+                                            cols[j].write(dates_to_display[index])
+                            except TypeError:
+
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
+                        case "Minutely":
+                            value_list = []
+                            value_slider = st.slider('Data you want:', min_value=5, max_value=120, help="Number of data you want.")
+                            try:
+                                dates, values = bk.api_wind_direction(place, 'h')
+                                dates = dates[:value_slider]
+                                values = values[:value_slider]
+                                ii = 0
+                                for value in values:
+                                    if  0 == value or value == 360:
+                                        value_list.append(f"{value}{u"\u00b0"}N")
+                                    elif 1 <= value < 90:
+                                        value_list.append(f"{value}{u"\u00b0"}NE")
+                                    elif 90 == value:
+                                        value_list.append(f"{value}{u"\u00b0"}E")
+                                    elif 91 <= value < 180:
+                                        value_list.append(f"{value}{u"\u00b0"}SE")
+                                    elif value == 180:
+                                        value_list.append(f"{value}{u"\u00b0"}S")
+                                    elif 181 <= value < 270:
+                                        value_list.append(f"{value}{u"\u00b0"}SW")
+                                    elif value == 270:
+                                        value_list.append(f"{value}{u"\u00b0"}W")
+                                    elif 271 <= value < 360:
+                                        value_list.append(f"{value}{u"\u00b0"}NW")
+                                num_cols = 5
+                                num_rows = (len(value_list) + num_cols - 1) // num_cols
+
+                                image_paths = []
+                                descriptions = []
+                                dates_to_display = []
+
+                                for i, date in zip(value_list, dates):
+                                    if i.endswith('°N'):
+                                        image_paths.append(img['North'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°NE'):
+                                        image_paths.append(img['North-east'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°E'):
+                                        image_paths.append(img['East'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°SE'):
+                                        image_paths.append(img['South-east'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°S'):
+                                        image_paths.append(img['South'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°SW'):
+                                        image_paths.append(img['South-west'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°W'):
+                                        image_paths.append(img['West'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+                                    elif i.endswith('°NW'):
+                                        image_paths.append(img['North-west'])
+                                        descriptions.append(i)
+                                        dates_to_display.append(date)
+
+                                for i in range(num_rows):
+                                    cols = st.columns(num_cols)
+                                    for j in range(num_cols):
+                                        index = i * num_cols + j
+                                        if index < len(image_paths):
+                                            cols[j].image(image_paths[index], width=50)
+                                            cols[j].write(descriptions[index])
+                                            cols[j].write(dates_to_display[index])
+                            except TypeError:
+                                st.header('Server error:'
+                                          'Please try after 1 hour!')
