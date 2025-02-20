@@ -1,7 +1,9 @@
 import requests
+import toml
 
+config = toml.load("secrets.toml")
 
-API_KEY = "76Ago1vfJUmfxYMcdySfzQ22mUXi5Icz"
+API_KEY = config["API_KEY"]["API_KEY"]
 
 
 def get_data(object_iterate, key):

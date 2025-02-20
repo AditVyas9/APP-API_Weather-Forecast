@@ -71,7 +71,7 @@ option_2 = st.selectbox("Select frequency:",("Daily", "Hourly", "Minutely"))
 
 if place:
 
-    st.subheader(f"{option} in {place}")
+    st.subheader(f"{option} in {place}", help="You can scroll the graph.")
     match option:
         case "Temperature":
             match option_2:
@@ -262,7 +262,7 @@ if place:
                         st.header('Server error:'
                                   'Please try after 1 hour!')
                 case "Hourly":
-                    value = st.slider('Data you want:', min_value=5, max_value=120)
+                    value = st.slider('Data:', min_value=5, max_value=120, help="Number of data you want.")
                     try:
                         dates, codes = bk.api_weather_code(place, 'h')
                         dates = dates[:value]
@@ -285,7 +285,7 @@ if place:
                         st.header('Server error:'
                                   'Please try after 1 hour!')
                 case "Minutely":
-                    value = st.slider('Data you want:', min_value=5, max_value=120)
+                    value = st.slider('Data you want:', min_value=5, max_value=120, help="Number of data you want.")
                     try:
                         dates, codes = bk.api_weather_code(place, 'm')
                         dates = dates[:value]
@@ -490,21 +490,21 @@ if place:
                         dates, values = bk.api_wind_direction(place, 'h')
                         ii = 0
                         for value in values:
-                            if  0 >= value < 45:
+                            if  0 == value or value == 360:
                                 value_list.append(f"{value}{u"\u00b0"}N")
-                            elif 45 <= value < 90:
+                            elif 1 <= value < 90:
                                 value_list.append(f"{value}{u"\u00b0"}NE")
-                            elif 90 <= value < 135:
+                            elif 90 == value:
                                 value_list.append(f"{value}{u"\u00b0"}E")
-                            elif 135 <= value < 180:
+                            elif 91 <= value < 180:
                                 value_list.append(f"{value}{u"\u00b0"}SE")
-                            elif 180 <= value < 225:
+                            elif value == 180:
                                 value_list.append(f"{value}{u"\u00b0"}S")
-                            elif 225 <= value < 270:
+                            elif 181 <= value < 270:
                                 value_list.append(f"{value}{u"\u00b0"}SW")
-                            elif 270 <= value < 310:
+                            elif value == 270:
                                 value_list.append(f"{value}{u"\u00b0"}W")
-                            elif 310 <= value < 360:
+                            elif 271 <= value < 360:
                                 value_list.append(f"{value}{u"\u00b0"}NW")
                         num_cols = 5
                         num_rows = (len(value_list) + num_cols - 1) // num_cols
@@ -559,8 +559,7 @@ if place:
                         st.header('Server error:'
                                   'Please try after 1 hour!')
                 case "Hourly":
-                    value_slider = st.slider('Data you want:', min_value=5,
-                                      max_value=120)
+                    value_slider = st.slider('Data you want:', min_value=5, max_value=120, help="Number of data you want.")
                     value_list = []
 
                     try:
@@ -569,21 +568,21 @@ if place:
                         values = values[:value_slider]
                         ii = 0
                         for value in values:
-                            if  0 >= value < 45:
+                            if  0 == value or value == 360:
                                 value_list.append(f"{value}{u"\u00b0"}N")
-                            elif 45 <= value < 90:
+                            elif 1 <= value < 90:
                                 value_list.append(f"{value}{u"\u00b0"}NE")
-                            elif 90 <= value < 135:
+                            elif 90 == value:
                                 value_list.append(f"{value}{u"\u00b0"}E")
-                            elif 135 <= value < 180:
+                            elif 91 <= value < 180:
                                 value_list.append(f"{value}{u"\u00b0"}SE")
-                            elif 180 <= value < 225:
+                            elif value == 180:
                                 value_list.append(f"{value}{u"\u00b0"}S")
-                            elif 225 <= value < 270:
+                            elif 181 <= value < 270:
                                 value_list.append(f"{value}{u"\u00b0"}SW")
-                            elif 270 <= value < 310:
+                            elif value == 270:
                                 value_list.append(f"{value}{u"\u00b0"}W")
-                            elif 310 <= value < 360:
+                            elif 271 <= value < 360:
                                 value_list.append(f"{value}{u"\u00b0"}NW")
                         num_cols = 5
                         num_rows = (len(value_list) + num_cols - 1) // num_cols
@@ -640,29 +639,28 @@ if place:
                                   'Please try after 1 hour!')
                 case "Minutely":
                     value_list = []
-                    value_slider = st.slider('Data you want:', min_value=5,
-                                      max_value=120)
+                    value_slider = st.slider('Data you want:', min_value=5, max_value=120, help="Number of data you want.")
                     try:
                         dates, values = bk.api_wind_direction(place, 'h')
                         dates = dates[:value_slider]
                         values = values[:value_slider]
                         ii = 0
                         for value in values:
-                            if  0 >= value < 45:
+                            if  0 == value or value == 360:
                                 value_list.append(f"{value}{u"\u00b0"}N")
-                            elif 45 <= value < 90:
+                            elif 1 <= value < 90:
                                 value_list.append(f"{value}{u"\u00b0"}NE")
-                            elif 90 <= value < 135:
+                            elif 90 == value:
                                 value_list.append(f"{value}{u"\u00b0"}E")
-                            elif 135 <= value < 180:
+                            elif 91 <= value < 180:
                                 value_list.append(f"{value}{u"\u00b0"}SE")
-                            elif 180 <= value < 225:
+                            elif value == 180:
                                 value_list.append(f"{value}{u"\u00b0"}S")
-                            elif 225 <= value < 270:
+                            elif 181 <= value < 270:
                                 value_list.append(f"{value}{u"\u00b0"}SW")
-                            elif 270 <= value < 310:
+                            elif value == 270:
                                 value_list.append(f"{value}{u"\u00b0"}W")
-                            elif 310 <= value < 360:
+                            elif 271 <= value < 360:
                                 value_list.append(f"{value}{u"\u00b0"}NW")
                         num_cols = 5
                         num_rows = (len(value_list) + num_cols - 1) // num_cols
