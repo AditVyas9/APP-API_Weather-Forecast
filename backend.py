@@ -73,7 +73,7 @@ def api_day(location, frequency):
             content = content_raw['timelines']['hourly']
             dates, temp = get_data(content, 'temperature')
             return dates, temp
-    except TypeError:
+    except KeyError:
         pass
 
 
