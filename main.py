@@ -70,7 +70,7 @@ option = st.selectbox("Select data to view", (default, "Temperature", "UV Index"
 option_2 = st.selectbox("Select frequency:",(default,"Daily", "Hourly", "Minutely"))
 
 if place and option != default and option_2 != default:
-    st.subheader(f"{option} in {place}", help="You can scroll the graph.")
+    st.subheader(f"{option} in {place.title()}", help="You can scroll the graph.")
     match option:
         case "Temperature":
             match option_2:
