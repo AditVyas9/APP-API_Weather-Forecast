@@ -1,7 +1,22 @@
 import requests
 import streamlit as st
 
-API_KEY = st.secrets["API_KEY"]["API_KEY"]
+
+API_KEY = st.secrets['API_KEY']['API_KEY']
+api_key = st.secrets['Geocode']['API_KEY']
+def exact(raw_location):
+    i = 0
+    url = ("https://geocode.maps.co/search?"
+           f"q={raw_location}&"
+           f"api_key={api_key}")
+    response = requests.get(url=url)
+    content_raw = response.json()
+    for object in content_raw:
+        if object['type'] == "locality" or "administrative" or "county" or "city" or "town" or "village":
+            lat = object['lat']
+            lon = object['lon']
+            final = lat + ',' + lon
+            return final
 
 
 def get_data(object_iterate, key):
@@ -297,6 +312,5 @@ def api_wind_direction(location, frequency):
         pass
 
 if __name__ == "__main__":
-    a, m = api_uv_index('new%20york', 'd')
-    print(len(a))
+    m = exact('new%20york, United States')
 
