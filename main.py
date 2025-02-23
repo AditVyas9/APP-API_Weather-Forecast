@@ -3,7 +3,7 @@ import plotly.express as px
 import backend as bk
 
 st.header('Weather Forecast App for the Next Days')
-place = st.text_input('Place:')
+raw_place = st.text_input('Place:', help="Enter place in format-(City, State, Country) or (City, State) or (City, Country)")
 images = {
                 '1000': 'images/1000.png',
                 '1100': 'images/1100.png',
@@ -68,11 +68,12 @@ default = '--Select--'
 
 option = st.selectbox("Select data to view", (default, "Temperature", "UV Index", "Visibility", "Humidity", "Dew point","Sky Conditions", "Surface Pressure", "Wind Speed", "Wind Gust", "Wind Direction"))
 option_2 = st.selectbox("Select frequency:",(default,"Daily", "Hourly", "Minutely"))
+place = bk.exact(raw_place)
 
-if place:
+if raw_place:
     if option != default:
         if option_2 != default:
-            st.subheader(f"{option} in {place}", help="You can scroll the graph.")
+            st.subheader(f"{option} in {raw_place.title()}", help="You can scroll the graph.")
             match option:
                 case "Temperature":
                     match option_2:
