@@ -73,7 +73,7 @@ def api_day(location, frequency):
             content = content_raw['timelines']['hourly']
             dates, temp = get_data(content, 'temperature')
             return dates, temp
-    except KeyError:
+    except TypeError:
         pass
 
 
@@ -312,5 +312,5 @@ def api_wind_direction(location, frequency):
         pass
 
 if __name__ == "__main__":
-    m = exact('new%20york, United States')
+    m = exact('new%20york, united states')
 
