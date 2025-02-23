@@ -102,7 +102,7 @@ def api_uv_index(location, frequency):
             dates, uv_indexes = get_data(content, 'uvIndexMax')
             return dates, uv_indexes
 
-    except IndexError:
+    except KeyError:
         pass
 
 
@@ -312,5 +312,5 @@ def api_wind_direction(location, frequency):
         pass
 
 if __name__ == "__main__":
-    m = exact('new%20york, united states')
+    m = exact('new%20york,%20United%20States')
 
