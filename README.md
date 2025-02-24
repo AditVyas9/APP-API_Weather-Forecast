@@ -2,5 +2,7 @@
 
 It is a weather forecast API App.
 
-### Tomorrow.io
+### #Tomorrow.io
+### #Open Weather Map
+### #Open Meteo.com
 ### Developed with Python

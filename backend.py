@@ -14,8 +14,8 @@ def exact(raw_location):
         if o['type'] == "locality" or "administrative" or "county" or "city" or "town" or "village":
             lat = o['lat']
             lon = o['lon']
-            final = lat + ',' + lon
-            return final
+            final_location = lat + ',' + lon
+            return final_location
 
 
 
@@ -308,6 +308,20 @@ def api_wind_direction(location, frequency):
             dates, wind_direction = get_data(content, "windDirection")
             wind_direction = [int(i) for i in wind_direction]
             return dates, wind_direction
+    except KeyError:
+        pass
+
+
+def aqi(lat, lon):
+    url = ("https://air-quality-api.open-meteo.com/v1/air-quality?"
+           f"latitude={lat}&longitude={lon}&hourly=pm10,pm2_5")
+    response = requests.get(url)
+    content_raw = response.json()
+    try:
+        dates = content_raw['hourly']['time']
+        pm_25 = content_raw['hourly']['pm2_5']
+        pm10 = content_raw['hourly']['pm10']
+        return dates, pm_25, pm10
     except KeyError:
         pass
 
