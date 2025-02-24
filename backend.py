@@ -325,11 +325,11 @@ def aqi(lat, lon):
     except KeyError:
         pass
 
-def real_time(lat, lon, gmt_datetime):
+def local_time(lon, lat, gmt_datetime):
     url = ("https://api.timezonedb.com/v2.1/get-time-zone?"
            f"key={API_real}&format=json&by=position&"
            f"lat={lon}&"
-           f"lng=-{lat}")
+           f"lng={lat}")
     response = requests.get(url)
     response.encoding = 'utf-8'
     content_raw = response.json()
@@ -344,9 +344,9 @@ def real_time(lat, lon, gmt_datetime):
         datetime_str = dt.strftime("%Y-%m-%d(%H:%M)")
         new_dates.append(datetime_str)
 
-    return new_dates
+    return new_dates, url
 
 
 
 if __name__ == "__main__":
-    real_time('19.033', '73.020')
+    exact('New Delhi, India')
