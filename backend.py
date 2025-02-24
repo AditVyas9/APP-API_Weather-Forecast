@@ -344,7 +344,7 @@ def local_time(lat, lon, gmt_datetime):
         datetime_str = dt.strftime("%Y-%m-%d(%H:%M)")
         new_dates.append(datetime_str)
 
-    return new_dates, url
+    return new_dates
 
 
 
