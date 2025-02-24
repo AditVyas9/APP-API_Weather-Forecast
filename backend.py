@@ -325,11 +325,11 @@ def aqi(lat, lon):
     except KeyError:
         pass
 
-def local_time(lon, lat, gmt_datetime):
+def local_time(lat, lon, gmt_datetime):
     url = ("https://api.timezonedb.com/v2.1/get-time-zone?"
            f"key={API_real}&format=json&by=position&"
-           f"lat={lon}&"
-           f"lng={lat}")
+           f"lat={lat}&"
+           f"lng={lon}")
     response = requests.get(url)
     response.encoding = 'utf-8'
     content_raw = response.json()
