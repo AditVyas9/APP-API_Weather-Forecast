@@ -1,9 +1,10 @@
 import requests
 import streamlit as st
-
-
+from datetime import datetime
+import pytz
 API_KEY = st.secrets['API_KEY']['API_KEY']
 api_key = st.secrets['Geocode']['API_KEY']
+API_real = st.secrets['timezonedb']['API_KEY']
 def exact(raw_location):
     url = ("https://geocode.maps.co/search?"
            f"q={raw_location}&"
@@ -16,8 +17,6 @@ def exact(raw_location):
             lon = o['lon']
             final_location = lat + ',' + lon
             return final_location
-
-
 
 def get_data(object_iterate, key):
     dates = []
@@ -325,6 +324,26 @@ def aqi(lat, lon):
     except KeyError:
         pass
 
-if __name__ == "__main__":
-    m = api_day('40.7127281,-74.0060152', 'd')
+def real_time(lat, lon, gmt_datetime):
+    url = ("https://api.timezonedb.com/v2.1/get-time-zone?"
+           f"key={API_real}&format=json&by=position&"
+           f"lat={lon}&"
+           f"lng=-{lat}")
+    response = requests.get(url)
+    response.encoding = 'utf-8'
+    content_raw = response.json()
+    tz = content_raw['zoneName']
+    new_dates = []
+    for date in gmt_datetime:
+        gmt_datetime = datetime.strptime(date, "%Y-%m-%d(%H:%M)")
+        gmt_timezone = pytz.timezone('GMT')
+        gmt_datetime = gmt_timezone.localize(gmt_datetime)
+        zone = pytz.timezone(tz)
+        dt = gmt_datetime.astimezone(zone)
+        datetime_str = dt.strftime("%Y-%m-%d(%H:%M)")
+        new_dates.append(datetime_str)
 
+    return new_dates
+
+if __name__ == "__main__":
+    real_time('19.033', '73.020')
