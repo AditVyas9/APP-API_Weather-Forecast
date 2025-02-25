@@ -318,7 +318,7 @@ def aqi(lat, lon):
     content_raw = response.json()
     try:
         dates = content_raw['hourly']['time']
-        dates = [i.replace('T', '(') + ')' for i in dates]
+        dates = [f"{i.replace('T', '(')})" for i in dates]
         pm_25 = content_raw['hourly']['pm2_5']
         pm10 = content_raw['hourly']['pm10']
         return dates, pm_25, pm10
