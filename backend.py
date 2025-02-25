@@ -347,6 +347,5 @@ def local_time(lat, lon, gmt_datetime):
     return new_dates
 
 
-
 if __name__ == "__main__":
     exact('New Delhi, India')
