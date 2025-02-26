@@ -343,7 +343,6 @@ def local_time(lat, lon, gmt_datetime):
         dt = gmt_datetime.astimezone(zone)
         datetime_str = dt.strftime("%Y-%m-%d(%H:%M)")
         new_dates.append(datetime_str)
-
     return new_dates
 
 
