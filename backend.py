@@ -15,7 +15,7 @@ def exact(raw_location):
         if o['type'] == "locality" or "administrative" or "county" or "city" or "town" or "village":
             lat = o['lat']
             lon = o['lon']
-            final_location = lat + ',' + lon
+            final_location = f"{lat}, {lon}"
             return final_location
 
 def get_data(object_iterate, key):
