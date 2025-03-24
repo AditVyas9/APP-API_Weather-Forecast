@@ -50,7 +50,6 @@ def get_data(object_iterate, key):
 
 
 def api_day(location, frequency):
-    location = location.replace(' ', '%20').lower()
     url = ("https://api.tomorrow.io/v4/weather/forecast?"
            f"location={location}&"
            f"timesteps=1{frequency}&"
@@ -77,7 +76,6 @@ def api_day(location, frequency):
 
 
 def api_uv_index(location, frequency):
-    location = location.replace(' ', '%20').lower()
     url = ("https://api.tomorrow.io/v4/weather/forecast?"
            f"location={location}&"
            f"timesteps=1{frequency}&"
@@ -106,7 +104,6 @@ def api_uv_index(location, frequency):
 
 
 def api_humidity(location, frequency):
-    location = location.replace(' ', '%20').lower()
     url = ("https://api.tomorrow.io/v4/weather/forecast?"
            f"location={location}&"
            f"timesteps=1{frequency}&"
@@ -132,7 +129,6 @@ def api_humidity(location, frequency):
 
 
 def api_visibility(location, frequency):
-    location = location.replace(' ', '%20').lower()
     url = ("https://api.tomorrow.io/v4/weather/forecast?"
            f"location={location}&"
            f"timesteps=1{frequency}&"
@@ -158,7 +154,6 @@ def api_visibility(location, frequency):
 
 
 def api_dew_point(location, frequency):
-    location = location.replace(' ', '%20').lower()
     url = ("https://api.tomorrow.io/v4/weather/forecast?"
            f"location={location}&"
            f"timesteps=1{frequency}&"
@@ -184,7 +179,6 @@ def api_dew_point(location, frequency):
 
 
 def api_weather_code(location, frequency):
-    location = location.replace(' ', '%20').lower()
     url = ("https://api.tomorrow.io/v4/weather/forecast?"
            f"location={location}&"
            f"timesteps=1{frequency}&"
@@ -210,7 +204,6 @@ def api_weather_code(location, frequency):
 
 
 def api_surface_level(location, frequency):
-    location = location.replace(' ', '%20').lower()
     url = ("https://api.tomorrow.io/v4/weather/forecast?"
            f"location={location}&"
            f"timesteps=1{frequency}&"
@@ -235,7 +228,6 @@ def api_surface_level(location, frequency):
 
 
 def api_wind_speed(location, frequency):
-    location = location.replace(' ', '%20').lower()
     url = ("https://api.tomorrow.io/v4/weather/forecast?"
            f"location={location}&"
            f"timesteps=1{frequency}&"
@@ -260,7 +252,6 @@ def api_wind_speed(location, frequency):
 
 
 def api_wind_gust(location, frequency):
-    location = location.replace(' ', '%20').lower()
     url = ("https://api.tomorrow.io/v4/weather/forecast?"
            f"location={location}&"
            f"timesteps=1{frequency}&"
@@ -284,7 +275,6 @@ def api_wind_gust(location, frequency):
         pass
 
 def api_wind_direction(location, frequency):
-    location = location.replace(' ', '%20').lower()
     url = ("https://api.tomorrow.io/v4/weather/forecast?"
            f"location={location}&"
            f"timesteps=1{frequency}&"
@@ -317,11 +307,11 @@ def aqi(lat, lon):
     response = requests.get(url)
     content_raw = response.json()
     try:
-        dates = content_raw['hourly']['time']
+        dates = content_raw["hourly"]['time']
         dates = [f"{i.replace('T', '(')})" for i in dates]
         pm_25 = content_raw['hourly']['pm2_5']
         pm10 = content_raw['hourly']['pm10']
-        return dates, pm_25, pm10
+        return [dates, pm_25, pm10]
     except KeyError:
         pass
 
@@ -345,6 +335,3 @@ def local_time(lat, lon, gmt_datetime):
         new_dates.append(datetime_str)
     return new_dates
 
-
-if __name__ == "__main__":
-    exact('New Delhi, India')

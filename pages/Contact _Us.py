@@ -17,5 +17,3 @@ From: {user_email}
     if submit:
         send_email(message)
         st.info("Your E-mail was sent successfully!")
-
-st.write("[Weather Forecast App](https://api-weather-forecast-v2.streamlit.app/)")
