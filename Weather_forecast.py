@@ -80,9 +80,7 @@ with col1:
 with col2:
 	option = st.selectbox("Select data to view", ("Temperature", "UV Index",
 												  "Visibility", "Humidity",
-												  "Dew point",
 												  "Sky Conditions",
-												  "Surface Pressure",
 												  "Wind Speed",
 												  "Wind Gust",
 												  "Wind Direction",
@@ -456,7 +454,7 @@ if raw_place and option is not None and option3 is not None:
 									figure.update_xaxes(ticksuffix="   ")
 									figure.update_yaxes(ticksuffix="   ")
 									st.plotly_chart(figure_or_data=figure)
-								except IntendationError:
+								except TypeError:
 									st.header('Server error:'
 											  'Please try after 1 hour!')
 							case "Hourly":
